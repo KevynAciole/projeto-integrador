@@ -1,0 +1,118 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===== CENTRALIZAÇÃO DO MODAL ===== */
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ===== CONTAINER BASE (vale para ambos) ===== */
+#new-product,
+#edit-product {
+    width: 50%;
+    background-color: #fff;
+    border: 2px solid #d89a9e;
+    border-radius: 20px;
+    padding: 5px 20px;
+    color: #32465d;
+}
+
+/* ===== ESPAÇAMENTO PADRÃO INTERNO ===== */
+#new-product > *,
+#edit-product > * {
+    margin: 15px 0;
+}
+
+/* ===== HEADER DO FECHAR ===== */
+#exit-button {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#exit-button button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+/* ===== ÍCONES ===== */
+.material-symbols-outlined {
+    padding: 5px;
+    color: #32465d;
+    transition: 0.2s;
+    border-radius: 50%;
+}
+
+.material-symbols-outlined:hover {
+    background-color: #d89a9e;
+}
+
+/* ===== TÍTULO ===== */
+h1 {
+    font-size: 2.1em;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* ===== FORM ===== */
+#formulary {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+form {
+    width: 100%;
+}
+
+form > div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+/* ===== INPUTS ===== */
+form input {
+    padding: 7px;
+    width: 100%;
+    border: 2px solid #32465d;
+    border-radius: 5px;
+    background-color: #ffd6d6;
+    color: #32465d;
+}
+
+form input:focus {
+    outline: 2px solid #32465d;
+    outline-offset: 2px;
+}
+
+/* ===== BOTÃO ===== */
+#register-button {
+    display: flex;
+    justify-content: center;
+}
+
+#register-button button {
+    padding: 10px 30px;
+    background-color: #32465d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+#register-button button:hover {
+    background-color: #2b3c4e;
+}

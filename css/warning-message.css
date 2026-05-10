@@ -1,0 +1,81 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#warning-message {
+    width: 50%;
+    background-color: #fff;
+    border: #d89a9e 2px solid;
+    border-radius: 20px;
+    padding: 5px 20px;
+    color: #32465d;
+    text-align: center;
+}
+
+/* espaçamento controlado */
+#warning-message > * {
+    margin: 15px 0;
+}
+
+/* ícone */
+.material-symbols-outlined {
+    font-size: 120px !important;
+    color: #32465d;
+    padding: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* título */
+#warning-message h1 {
+    font-weight: bold;
+}
+
+/* mensagem */
+#exclusion-message {
+    font-size: 1.1em;
+}
+
+/* botões */
+#add-cancel-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+#add-cancel-buttons button {
+    font-weight: bold;
+    padding: 10px 30px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+/* estilos */
+#confirm-button {
+    background-color: #577c56;
+}
+
+#confirm-button:hover {
+    background-color: #456144;
+}
+
+#cancel-button {
+    background-color: #d72536;
+}
+
+#cancel-button:hover {
+    background-color: #b91e2d;
+}
