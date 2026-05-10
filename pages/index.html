@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <title>Draxen - Gestão de Estoque</title>
+</head>
+
+<body>
+    <header>
+        <div>
+            <h1 id="company-name">Draxen</h1>
+            <h2 id="company-slogan">Controle de Estoque Inteligente</h2>
+        </div>
+    </header>
+
+    <main>
+
+        <section id="general-info">
+            <div>
+                <p>0000</p>
+                <p>Total de Itens</p>
+            </div>
+            <div>
+                <p>000</p>
+                <p>Itens Cadastrados</p>
+            </div>
+            <div>
+                <p>00</p>
+                <p>Itens com Estoque Zerado</p>
+            </div>
+            <div>
+                <p>00</p>
+                <p>Itens com Estoque Baixo</p>
+            </div>
+        </section>
+
+        <section id="action-buttons">
+            <button id="add-product">Entrada</button>
+            <button id="delete-product">Saída</button>
+            <button id="add-new-product-type">+ Novo Item</button>
+        </section>
+
+        <section id="registered-products">
+            <div id="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th>Quantidade</th>
+                            <th>Setor</th>
+                            <th>Alarme</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Arroz</td>
+
+                            <td>
+                                <div class="qty-control">
+                                    <button class="icon-btn">
+                                        <span class="material-symbols-outlined">add</span>
+                                    </button>
+                                    <span>22</span>
+                                    <button class="icon-btn">
+                                        <span class="material-symbols-outlined">remove</span>
+                                    </button>
+                                </div>
+                            </td>
+
+                            <td>Grãos</td>
+                            <td>Baixo Estoque</td>
+
+                            <td>
+                                <button class="icon-btn">
+                                    <span class="material-symbols-outlined">list_alt_add</span>
+                                </button>
+                                <button class="icon-btn">
+                                    <span class="material-symbols-outlined">delete</span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <footer></footer>
+</body>
+</html>
