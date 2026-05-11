@@ -1,48 +1,37 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/add-edit-product.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-    <title>Novo Item</title>
-</head>
+<div id="modal-overlay">
 
-<body>
+    <div class="modal modal--edit">
 
-    <div id="new-product">
-
-        <header id="exit-button">
-            <button aria-label="Fechar formulário">
+        <div class="modal__header">
+            <button class="modal__close" id="close-modal" type="button" aria-label="Fechar">
                 <span class="material-symbols-outlined">close</span>
             </button>
-        </header>
+        </div>
 
-        <h1>Novo Item</h1>
+        <h1 class="modal__title">Adicionar Item</h1>
 
-        <section id="formulary">
+        <div class="modal__body">
 
-            <form action="#">
+            <form class="modal__form" action="#">
 
-                <div>
+                <div class="modal__field">
                     <label for="product-name">Nome do produto</label>
-                    <input type="text" id="product-name" name="product-name">
+                    <input type="text" name="product-name" id="product-name">
                 </div>
 
-                <div>
+                <div class="modal__field">
                     <label for="sector">Setor</label>
-                    <input type="text" id="sector" name="sector">
+                    <input type="text" name="sector" id="sector">
                 </div>
 
-                <div id="register-button">
-                    <button type="submit">Registrar</button>
+                <div class="modal__actions">
+                    <button type="submit" class="btn btn--primary">Editar</button>
                 </div>
 
             </form>
 
-        </section>
+        </div>
 
     </div>
 
-</body>
-</html>
+</div>

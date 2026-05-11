@@ -1,46 +1,37 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/add-edit-product.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-    <title>Editar Item</title>
-</head>
+<div id="modal-overlay">
 
-<body>
+    <div id="edit-product" class="modal modal--edit">
 
-    <div id="edit-product">
-
-        <div id="exit-button">
-            <button aria-label="Fechar">
+        <div id="exit-button" class="modal__header">
+            <button class="modal__close" id="close-modal" type="button" aria-label="Fechar">
                 <span class="material-symbols-outlined">close</span>
             </button>
         </div>
 
-        <h1>Editar Item</h1>
+        <h1 class="modal__title">Editar Item</h1>
 
-        <div id="formulary">
-            <form action="#">
+        <div id="formulary" class="modal__body">
 
-                <div>
+            <form action="#" class="modal__form">
+
+                <div class="modal__field">
                     <label for="product-name">Nome do produto</label>
                     <input type="text" name="product-name" id="product-name">
                 </div>
 
-                <div>
+                <div class="modal__field">
                     <label for="sector">Setor</label>
                     <input type="text" name="sector" id="sector">
                 </div>
 
-                <div id="register-button">
-                    <button type="submit">Editar</button>
+                <div id="register-button" class="modal__actions">
+                    <button type="submit" class="btn btn--primary">Editar</button>
                 </div>
 
             </form>
+
         </div>
 
     </div>
 
-</body>
-</html>
+</div>

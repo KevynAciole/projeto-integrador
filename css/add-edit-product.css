@@ -1,87 +1,94 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* ===== CENTRALIZAÇÃO DO MODAL ===== */
-body {
-    height: 100vh;
+/* ===== OVERLAY ===== */
+#modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+
     display: flex;
     justify-content: center;
     align-items: center;
+
+    z-index: 9999;
+
+    pointer-events: none;
 }
 
-/* ===== CONTAINER BASE (vale para ambos) ===== */
-#new-product,
-#edit-product {
-    width: 50%;
+#modal-overlay > * {
+    pointer-events: all;
+}
+
+/* ===== MODAL BASE ===== */
+.modal {
+    width: min(500px, 90%);
+    max-height: 90vh;
+
     background-color: #fff;
     border: 2px solid #d89a9e;
     border-radius: 20px;
-    padding: 5px 20px;
+    padding: 20px;
+
     color: #32465d;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    overflow-y: auto;
 }
 
-/* ===== ESPAÇAMENTO PADRÃO INTERNO ===== */
-#new-product > *,
-#edit-product > * {
-    margin: 15px 0;
-}
-
-/* ===== HEADER DO FECHAR ===== */
-#exit-button {
+/* ===== HEADER ===== */
+.modal__header {
     display: flex;
     justify-content: flex-end;
 }
 
-#exit-button button {
+.modal__close {
     background: none;
     border: none;
     cursor: pointer;
-    display: flex;
-    align-items: center;
 }
 
-/* ===== ÍCONES ===== */
-.material-symbols-outlined {
+/* ===== ÍCONES SÓ DO MODAL ===== */
+.modal .material-symbols-outlined {
     padding: 5px;
+    border-radius: 50%;
     color: #32465d;
     transition: 0.2s;
-    border-radius: 50%;
 }
 
-.material-symbols-outlined:hover {
+.modal .material-symbols-outlined:hover {
     background-color: #d89a9e;
 }
 
 /* ===== TÍTULO ===== */
-h1 {
+.modal__title {
     font-size: 2.1em;
     font-weight: bold;
     text-align: center;
 }
 
 /* ===== FORM ===== */
-#formulary {
+.modal__form {
+    width: 100%;
     display: flex;
-    justify-content: center;
-    width: 100%;
+    flex-direction: column;
+    gap: 15px;
 }
 
-form {
-    width: 100%;
-}
-
-form > div {
+.modal__field {
     display: flex;
     flex-direction: column;
     gap: 5px;
-    margin-bottom: 15px;
 }
 
-/* ===== INPUTS ===== */
-form input {
+/* inputs isolados */
+.modal__form input {
     padding: 7px;
     width: 100%;
     border: 2px solid #32465d;
@@ -90,29 +97,32 @@ form input {
     color: #32465d;
 }
 
-form input:focus {
+.modal__form input:focus {
     outline: 2px solid #32465d;
     outline-offset: 2px;
 }
 
 /* ===== BOTÃO ===== */
-#register-button {
+.modal__actions {
     display: flex;
     justify-content: center;
 }
 
-#register-button button {
+.btn {
     padding: 10px 30px;
-    background-color: #32465d;
-    color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: 0.2s;
     font-weight: bold;
     font-size: 1.2em;
+    transition: 0.2s;
 }
 
-#register-button button:hover {
+.btn--primary {
+    background-color: #32465d;
+    color: white;
+}
+
+.btn--primary:hover {
     background-color: #2b3c4e;
 }
