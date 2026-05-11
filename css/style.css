@@ -147,9 +147,10 @@ table {
 }
 
 th, td {
-    padding: 20px 60px;
+    padding: 20px;
     background-color: #ffd6d6;
     text-align: center;
+    vertical-align: middle;
     color: #32465d;
     border: 2px solid #d89a9e;
 }
@@ -159,6 +160,7 @@ th {
     background-color: #fe9f9f;
     font-weight: bold;
     font-size: 1.5em;
+    text-align: center;
 }
 
 /* quantidade */
@@ -167,4 +169,11 @@ th {
     align-items: center;
     justify-content: center;
     gap: 10px;
+    width: 100%;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+    text-align: center;
+    vertical-align: middle;
 }
