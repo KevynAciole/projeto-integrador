@@ -3,28 +3,24 @@ export const products = [
         id: 1,
         name: "Arroz",
         quantity: 22,
-        sector: "Grãos",
-        lowStock: true
+        sector: "Grãos"
     },
     {
         id: 2,
         name: "Feijão",
         quantity: 80,
-        sector: "Grãos",
-        lowStock: false
+        sector: "Grãos"
     },
     {
         id: 3,
         name: "Macarrão",
         quantity: 10,
-        sector: "Massas",
-        lowStock: true
+        sector: "Massas"
     },
     {
-        id: 10,
+        id: 4,
         name: "Café",
         quantity: 5,
-        sector: "Bebidas",
-        lowStock: true
+        sector: "Bebidas"
     }
 ];

@@ -6,6 +6,15 @@ export function renderProducts(products) {
 
     products.forEach(product => {
 
+        const isLowStock = product.quantity > 0 && product.quantity <= 5;
+        const isZeroStock = product.quantity === 0;
+
+        const stockLabel = isZeroStock
+            ? "Sem Estoque"
+            : isLowStock
+                ? "Baixo Estoque"
+                : "OK";
+
         const tr = document.createElement("tr");
 
         tr.innerHTML = `
@@ -29,28 +38,19 @@ export function renderProducts(products) {
 
             <td>${product.sector}</td>
 
-            <td>
-                ${product.lowStock ? "Baixo Estoque" : "OK"}
-            </td>
+            <td>${stockLabel}</td>
 
             <td>
-
-                <button class="icon-btn edit-btn">
+                <button class="icon-btn edit-btn" data-id="${product.id}">
                     <span class="material-symbols-outlined">edit</span>
                 </button>
 
-                <button 
-                    class="icon-btn delete-btn"
-                    data-id="${product.id}"
-                >
+                <button class="icon-btn delete-btn" data-id="${product.id}">
                     <span class="material-symbols-outlined">delete</span>
                 </button>
-
             </td>
         `;
 
         tbody.appendChild(tr);
-
     });
-
 }

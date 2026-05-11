@@ -1,137 +1,234 @@
 import {
     getProducts,
     deleteProduct,
-    updateQuantity
+    updateQuantity,
+    updateProduct,
+    addProduct
 } from "./api.js";
 
 import { renderProducts } from "./render.js";
 
+/* =========================================================
+   STATE
+========================================================= */
+
 let currentDeleteId = null;
+let currentEditId = null;
 let modalOpen = false;
 
-// cache DOM
+/* =========================================================
+   DOM CACHE
+========================================================= */
+
 const modalContainer = document.getElementById("modal-container");
 
-/* ===== CARREGAR PRODUTOS ===== */
+/* =========================================================
+   CORE
+========================================================= */
+
 async function loadProducts() {
     const products = await getProducts();
     renderProducts(products);
+    updateDashboard(products);
 }
 
-/* ===== MODAL NOVO PRODUTO ===== */
+/* =========================================================
+   MODAL HELPERS
+========================================================= */
+
+function openModal() {
+    modalOpen = true;
+}
+
+function closeModal() {
+    modalContainer.innerHTML = "";
+    currentDeleteId = null;
+    currentEditId = null;
+    modalOpen = false;
+}
+
+/* =========================================================
+   ADD PRODUCT
+========================================================= */
+
 async function openNewProductModal() {
     if (modalOpen) return;
-    modalOpen = true;
+    openModal();
 
     const response = await fetch("../pages/add-product.html");
-    const modalHtml = await response.text();
+    modalContainer.innerHTML = await response.text();
 
-    modalContainer.innerHTML = modalHtml;
+    const form = modalContainer.querySelector(".modal__form");
+
+    if (!form) return;
+
+    form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const name = document.getElementById("product-name").value;
+        const sector = document.getElementById("sector").value;
+
+        await addProduct({
+            name,
+            sector,
+            quantity: 0
+        });
+
+        closeModal();
+        loadProducts();
+    });
 }
 
-/* ===== MODAL EDITAR ===== */
+/* =========================================================
+   EDIT PRODUCT
+========================================================= */
+
 async function openEditModal(id) {
     if (modalOpen) return;
-    modalOpen = true;
+    openModal();
+
+    currentEditId = id;
 
     const response = await fetch("../pages/edit-product.html");
-    const modalHtml = await response.text();
+    modalContainer.innerHTML = await response.text();
 
-    modalContainer.innerHTML = modalHtml;
+    const products = await getProducts();
+    const product = products.find(p => Number(p.id) === Number(id));
 
-    // aqui você pode preencher dados do produto
+    if (!product) return;
+
+    const nameInput = document.getElementById("product-name");
+    const sectorInput = document.getElementById("sector");
+
+    if (nameInput) nameInput.value = product.name;
+    if (sectorInput) sectorInput.value = product.sector;
+
+    const form = modalContainer.querySelector(".modal__form");
+
+    if (!form) return;
+
+    form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const name = nameInput.value;
+        const sector = sectorInput.value;
+
+        await updateProduct(currentEditId, {
+            name,
+            sector
+        });
+
+        closeModal();
+        loadProducts();
+    });
 }
 
-/* ===== MODAL EXCLUIR ===== */
+/* =========================================================
+   DELETE PRODUCT
+========================================================= */
+
 async function openDeleteModal(id) {
     if (modalOpen) return;
-    modalOpen = true;
+    openModal();
 
     currentDeleteId = id;
 
     const response = await fetch("../pages/warning-message.html");
-    const modalHtml = await response.text();
+    modalContainer.innerHTML = await response.text();
 
-    modalContainer.innerHTML = modalHtml;
+    const confirmBtn = document.getElementById("confirm-button");
+    const cancelBtn = document.getElementById("cancel-button");
+
+    confirmBtn?.addEventListener("click", async () => {
+        await deleteProduct(currentDeleteId);
+        closeModal();
+        loadProducts();
+    });
+
+    cancelBtn?.addEventListener("click", closeModal);
 }
 
-/* ===== FECHAR MODAL ===== */
-function closeModal() {
-    modalContainer.innerHTML = "";
-    currentDeleteId = null;
-    modalOpen = false;
-}
+/* =========================================================
+   GLOBAL EVENTS (AÇÕES)
+========================================================= */
 
-/* ===== EVENTOS CENTRALIZADOS ===== */
 document.addEventListener("click", async (event) => {
 
-    /* ===== AUMENTAR ===== */
     const increaseBtn = event.target.closest(".increase-btn");
-
     if (increaseBtn) {
-        const id = Number(increaseBtn.dataset.id);
-        await updateQuantity(id, 1);
+        await updateQuantity(Number(increaseBtn.dataset.id), 1);
         loadProducts();
         return;
     }
 
-    /* ===== DIMINUIR ===== */
     const decreaseBtn = event.target.closest(".decrease-btn");
-
     if (decreaseBtn) {
-        const id = Number(decreaseBtn.dataset.id);
-        await updateQuantity(id, -1);
+        await updateQuantity(Number(decreaseBtn.dataset.id), -1);
         loadProducts();
         return;
     }
 
-    /* ===== NOVO ITEM ===== */
     const newItemBtn = event.target.closest("#add-new-product-type");
-
     if (newItemBtn) {
         await openNewProductModal();
         return;
     }
 
-    /* ===== EXCLUIR (ABRE MODAL) ===== */
     const deleteBtn = event.target.closest(".delete-btn");
-
     if (deleteBtn) {
-        const id = Number(deleteBtn.dataset.id);
-        await openDeleteModal(id);
+        await openDeleteModal(Number(deleteBtn.dataset.id));
         return;
     }
 
-    /* ===== EDITAR ===== */
     const editBtn = event.target.closest(".edit-btn");
-
     if (editBtn) {
-        const id = Number(editBtn.dataset.id);
-        await openEditModal(id);
+        await openEditModal(Number(editBtn.dataset.id));
         return;
     }
 
-    /* ===== CONFIRMAR EXCLUSÃO ===== */
-    if (event.target.closest("#confirm-button")) {
+    const clickedOutside = event.target === modalContainer;
+    const clickedClose = event.target.closest("#close-modal");
+    const clickedCancel = event.target.closest("#cancel-button");
 
-        if (typeof currentDeleteId === "number") {
-            await deleteProduct(currentDeleteId);
-            await loadProducts();
-        }
-
-        closeModal();
-        return;
-    }
-
-    /* ===== FECHAR MODAL ===== */
-    if (
-        event.target.id === "modal-overlay" ||
-        event.target.closest("#cancel-button") ||
-        event.target.closest("#close-modal")
-    ) {
+    if (clickedOutside || clickedClose || clickedCancel) {
         closeModal();
     }
 });
 
-/* ===== INICIAL ===== */
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+function updateDashboard(products) {
+
+    const totalItems = products.reduce((acc, item) => acc + item.quantity, 0);
+
+    const registeredItems = products.length;
+
+    const zeroStockItems = products.filter(item => item.quantity === 0).length;
+
+    const lowStockItems = products.filter(
+        item => item.quantity > 0 && item.quantity <= 5
+    ).length;
+
+    document.getElementById("total-items").textContent = totalItems;
+    document.getElementById("registered-items").textContent = registeredItems;
+    document.getElementById("zero-stock-items").textContent = zeroStockItems;
+    document.getElementById("low-stock-items").textContent = lowStockItems;
+}
+
+/* =========================================================
+   STOCK STATUS
+========================================================= */
+
+export function getStockStatus(quantity) {
+    if (quantity === 0) return "zero";
+    if (quantity <= 5) return "low";
+    return "ok";
+}
+
+/* =========================================================
+   INIT
+========================================================= */
+
 loadProducts();
